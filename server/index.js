@@ -5,11 +5,11 @@ require('dotenv').config();
 
 const controller = require('./controller');
 const {
-    PORT,
+    server_PORT,
     DB_CONNECTION_STRING
 } = process.env;
 
-massive(process.env.DB_CONNECTION_STRING)
+massive(DB_CONNECTION_STRING)
     .then(dbInstance => {
         app.set('db', dbInstance)
     }).catch(() => console.log(err));
@@ -18,4 +18,7 @@ const app = express ();
 
 app.use(bodyParser(JSON));
 
-app.listen(PORT, () => console.log(`Server is listening on ${PORT}`));
+app.get('/api/products', controller.getAll);
+app.post('/api/products', controller.create);
+
+app.listen(server_PORT, () => console.log(`Server is listening on ${server_PORT}`));
