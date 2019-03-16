@@ -17,10 +17,12 @@ class App extends Component {
     this.getInventory();
   }
 
+  //using arrow funtions in your functions makes it so that you do not have to bind each one
+  //Makes your code cleaner
+
   //Methods
   getInventory = () => {
     axios.get('/api/products').then( response => {
-        console.log(response)
         this.setState({
             inventory: response.data
         })
@@ -30,10 +32,12 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <button onClick={() => this.getInventory()}>get</button>
-        <Dashboard inventory = {this.state.inventory}/>
-        <Form/>
-        <Header/>
+       <Header/>
+        <div className='container'>
+          {this.getInventory()}
+          <Dashboard inventory = {this.state.inventory}/>
+          <Form/>
+        </div>
       </div>
     );
   }

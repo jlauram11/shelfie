@@ -1,41 +1,38 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import './Form.css'
 
 class Form extends Component {
-    state = {
-        productName: '',
-        productPrice: '',
-        imageUrl: ''
-    }
 
     constructor () {
         super ()
 
-        this.handleImageChange = this.handleImageChange.bind(this);
-        this.handleNameChange = this.handleNameChange.bind(this);
-        this.handlePriceChange = this.handlePriceChange.bind(this);
-        this.handleCancel = this.handleCancel.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.state = {
+            productName: '',
+            productPrice: '',
+            imageUrl: ''
+        }
     }
 
-    handleImageChange (event) {
+    handleImageChange = (event) => {
         this.setState({
             imageUrl: event.target.value,
         })
     }
 
-    handleNameChange (event) { 
+    handleNameChange = (event) => { 
         this.setState({
             productName: event.target.value,
         })
     }
 
-    handlePriceChange (event) {
+    handlePriceChange = (event) => {
         this.setState({
             productPrice: event.target.value,
         })
     }
     
-    handleCancel (event) {
+    handleCancel = (event) => {
         event.preventDefault();
         this.setState({
             productName: '',
@@ -44,13 +41,14 @@ class Form extends Component {
         })
     }
 
-    handleSubmit (event) {
-        event.preventDefault();
-        this.setState({
+    handleSubmit = (event) => {
+        axios.post('/api/products', this.state)
+        .then((response) => this.setState({
             productName: '',
             productPrice: '',
             imageUrl: ''
-        })
+        }))
+        .catch((err) => console.log(err))
     }
 
     render () {

@@ -1,26 +1,20 @@
 import React, { Component } from 'react';
-import Products from '../Products/Products';
+import Product from '../Product/Product';
+import './Dashboard.css'
 
 
 class Dashboard extends Component {
-    constructor(props){
-        super (props);
-        this.state = {
-            inventoryList: []
-        }
-    }
+   
 
-    componentDidMount( ){
-        this.setState({
-            inventoryList: this.props.inventory
-        })
-    };
-
-    
     render () {
+        //Mapped 
+        let mappedInv = this.props.inventory.map((product, id) => (
+            <Product className='product' key = {id} inventory = {product}/>
+        ))
+
         return (
-            <div>
-                <Products/>
+            <div className = 'inventory'>
+                {mappedInv}
             </div>
         )
     }
