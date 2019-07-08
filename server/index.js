@@ -13,7 +13,7 @@ const {
 massive(DB_CONNECTION_STRING)
     .then(dbInstance => {
         app.set('db', dbInstance)
-    }).catch(() => console.log(err));
+    }).catch((err) => console.log(err));
 
 const app = express ();
 
@@ -22,5 +22,6 @@ app.use(cors());
 
 app.get('/api/products', controller.getAll);
 app.post('/api/products', controller.create);
+app.delete('/api/products:id', controller.delete);
 
 app.listen(server_PORT, () => console.log(`Server is listening on ${server_PORT}`));

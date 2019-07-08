@@ -15,7 +15,7 @@ module.exports = {
     getAll: (req, res) => {
         req.app.get('db').view_inventory()
             .then( products => res.status(200).send(products) )
-            .catch( err => res.status(500).send('Failed to retrieve products'));   
+            .catch(err => res.status(500).send('Failed to retrieve products'));   
     },
 
     //Delete Product
